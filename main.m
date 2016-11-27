@@ -36,4 +36,6 @@ end
 
 %% GMM
 
-GMModel = fitgmdist(No_feats',10);
+GMModel_No = fitgmdist(No_feats',5,'RegularizationValue',0.5);
+
+GMModel_Yes = fitgmdist(Yes_feats',5,'RegularizationValue',0.5);
