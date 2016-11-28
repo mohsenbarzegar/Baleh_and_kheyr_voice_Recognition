@@ -1,6 +1,6 @@
 function [ Coeff ] = MFCC( y,Fs )
-%MFCC Summary of this function goes here
-%   Detailed explanation goes here
+%	This func. retrun MelFCC of input signal
+%   There are some Parameter to config here
 
 Coeff = melfcc(y, Fs, 'maxfreq', Fs/2, 'numcep', 13 ...
                  , 'nbands', 13, 'fbtype', 'fcmel', 'dcttype', 1, ... 

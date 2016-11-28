@@ -8,7 +8,7 @@ clear all ; clc ; close all ;
 %% Add paths for RastaMat
 addpath('Libraries/rastamat');
 
-%% Read training-set
+%% Read training-set & Calc. MFCCs
 file_addr_No = '.\Dataset_Train_Final\No\';
 file_addr_YES = '.\Dataset_Train_Final\Yes\';
 
@@ -16,8 +16,10 @@ file_addr_YES = '.\Dataset_Train_Final\Yes\';
 No_feats = double(zeros(13,1));
 for j = 1 : 12
     for i = 1 : 10
-        file_name = strcat(file_addr_No , 'p' , int2str(j) , ' (' , int2str(i) , ').wav') ; 
+        file_name = strcat(file_addr_No , 'p' , int2str(j) , ' (' , int2str(i) , ').wav') ;
+%       load voice one by one
         [No, Fs] = audioread(file_name);
+%       calc. MFCCs
         No_feats = [No_feats  MFCC(No(:,1),Fs)];
     end
 end
@@ -32,10 +34,10 @@ for j = 1 : 12
     end
 end
 
-%% GMM
-
+%% GMM (Gaussian Mixture Model)
+% No GMM Model
 GMModel_No = fitgmdist(No_feats',7,'RegularizationValue',0.9);
-
+% Yes GMM model
 GMModel_Yes = fitgmdist(Yes_feats',8,'RegularizationValue',0.9);
-
+% Save models in file 
 save('Models','GMModel_No','GMModel_Yes');
