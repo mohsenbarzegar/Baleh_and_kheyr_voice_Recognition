@@ -1,8 +1,6 @@
 %% ------------------ In the name of GOD ------------------
-%   title  : HW_3_TA (Multi media)
-%            "bale" & "kheyr" recognition
+%   title  : "Baleh" & "kheyr" recognition
 %   author : mohsen barzegar
-%   student num :9223014
 %   email  : mohsenbarzegar94@gmail.com
 
 clear all ; clc ; close all ;
@@ -36,8 +34,8 @@ end
 
 %% GMM
 
-GMModel_No = fitgmdist(No_feats',5,'RegularizationValue',0.9);
+GMModel_No = fitgmdist(No_feats',7,'RegularizationValue',0.9);
 
-GMModel_Yes = fitgmdist(Yes_feats',5,'RegularizationValue',0.9);
+GMModel_Yes = fitgmdist(Yes_feats',8,'RegularizationValue',0.9);
 
 save('Models','GMModel_No','GMModel_Yes');
