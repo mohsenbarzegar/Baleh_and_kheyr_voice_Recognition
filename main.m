@@ -36,7 +36,7 @@ end
 
 %% GMM (Gaussian Mixture Model)
 % No GMM Model
-GMModel_No = fitgmdist(No_feats',7,'RegularizationValue',0.9);
+GMModel_No = fitgmdist(No_feats',9,'RegularizationValue',0.9);
 % Yes GMM model
 GMModel_Yes = fitgmdist(Yes_feats',8,'RegularizationValue',0.9);
 % Save models in file 
