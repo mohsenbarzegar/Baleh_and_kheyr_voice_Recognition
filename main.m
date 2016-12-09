@@ -19,6 +19,8 @@ for j = 1 : 12
         file_name = strcat(file_addr_No , 'p' , int2str(j) , ' (' , int2str(i) , ').wav') ;
 %       load voice one by one
         [No, Fs] = audioread(file_name);
+%         No = Vad(No);
+%         No = Scale(No);
 %       calc. MFCCs
         No_feats = [No_feats  MFCC(No(:,1),Fs)];
     end
@@ -30,14 +32,17 @@ for j = 1 : 12
     for i = 1 : 10
         file_name = strcat(file_addr_YES , 'p' , int2str(j) , ' (' , int2str(i) , ').wav') ; 
         [Yes, Fs] = audioread(file_name);
+%         Yes = Vad(Yes);
+%         Yes = Scale(Yes);
         Yes_feats =  [Yes_feats MFCC(Yes(:,1),Fs)];
     end
 end
 
 %% GMM (Gaussian Mixture Model)
+options = statset('MaxIter',1000);
 % No GMM Model
-GMModel_No = fitgmdist(No_feats',9,'RegularizationValue',0.9);
+GMModel_No = fitgmdist(No_feats',6,'RegularizationValue',0.001,'Options',options);
 % Yes GMM model
-GMModel_Yes = fitgmdist(Yes_feats',8,'RegularizationValue',0.9);
+GMModel_Yes = fitgmdist(Yes_feats',6,'RegularizationValue',0.001,'Options',options);
 % Save models in file 
 save('Models','GMModel_No','GMModel_Yes');
